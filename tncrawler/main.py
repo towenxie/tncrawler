@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 
 from scrapy import cmdline
-cmdline.execute("scrapy crawl baiducrawler".split())
+cmdline.execute("scrapy crawl tncrawler".split())
