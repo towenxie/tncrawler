@@ -46,6 +46,9 @@ scrapy crawl proxy_httpsdaili
 
 命令：scrapy crawl tncrawler 或者 python main.py
 原理，是从resitem表读取疾病列表，然后循环爬虫，获得数据结果存储在表baiduitem中。
+
+查询DB爬的疾病个数：
+select count(*) from (select name, count(name) from baiduitem group by name) as su；
 </pre>
 相关配置
 <pre>
@@ -89,6 +92,7 @@ DOWNLOADER_MIDDLEWARES = {
 #####安装pip install scrapy，windows 10 系统下可能会有问题，安装下面这俩个会解决问题：
 [Twisted-17.9.0-cp36-cp36m-win_amd64.whl](https://download.lfd.uci.edu/pythonlibs/gjr6o2id/Twisted-17.9.0-cp36-cp36m-win_amd64.whl)   
 [pywin32-221.win-amd64-py3.6.exe](https://nchc.dl.sourceforge.net/project/pywin32/pywin32/Build%20221/pywin32-221.win-amd64-py3.6.exe)
+
 
 ## 参考
 
