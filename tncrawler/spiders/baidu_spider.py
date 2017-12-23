@@ -20,7 +20,7 @@ class BaiduSpider(CrawlSpider):
     def __init__(self):
         self.dbHelper=DBHelper()
         sql="select name from resitem limit %d, %d"
-        params=(0, 1)
+        params=(0, 100)
         self.resitems = self.dbHelper.select(sql,*params)
         self.resitemsCount = len(self.resitems)
         params=('baiduitem',)
@@ -42,7 +42,7 @@ class BaiduSpider(CrawlSpider):
     def parse_detail(self, response):
         item = BaiDuItem()
         try:
-            item['name'] = response.meta['name']
+            item['name'] = pymysql.escape_string(response.meta['name'])
             item['url'] = response.url
             item['text'] = response.text
         except:
