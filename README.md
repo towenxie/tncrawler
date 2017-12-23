@@ -48,7 +48,7 @@ scrapy crawl proxy_httpsdaili
 原理，是从resitem表读取疾病列表，然后循环爬虫，获得数据结果存储在表baiduitem中。
 
 查询DB爬的疾病个数：
-select count(*) from (select name, count(name) from baiduitem group by name) as su；
+select count(*) from (select name, count(name) from baiduitem group by name) as su;
 </pre>
 相关配置
 <pre>
