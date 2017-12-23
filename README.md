@@ -1,6 +1,6 @@
 # TNCrawler使用手册
 
-## 安装所需环境
+## 安装所需软件
 1. python3.6
 2. mysql数据库
 3. Anaconda(可选)
