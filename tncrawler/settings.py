@@ -48,7 +48,7 @@ ITEM_PIPELINES = {
 MYSQL_HOST = 'localhost'
 MYSQL_DBNAME = 'baidudb'         #数据库名字，请修改
 MYSQL_USER = 'root'             #数据库账号，请修改
-MYSQL_PASSWD = 'root'         #数据库密码，请修改
+MYSQL_PASSWD = ''         #数据库密码，请修改
 MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)

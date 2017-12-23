@@ -3,6 +3,7 @@
 import sys
 import datetime
 import logging
+import pymysql
 from dbhelper import DBHelper
 
 sys.path.append('../utils/')
@@ -19,13 +20,28 @@ class RESHelper():
     def save_data(self):
         _resAll = FileUtil.readlines(self.resFileName)
         self._clear_data()
+        _totalSize = len(_resAll)
         print('Res data storing...')
-        for _value in _resAll:
+        _stepSize = 1000
+        _sql = "insert into resitem(name) values"
+        _sqlTemp = ''
+        for _index, _value in enumerate(_resAll):
             try:
-                if _value:
-                    _sql = "insert into resitem(name) value('%s')"
-                    _params = (_value,)
-                    self.dbHelper.insert(_sql, *_params)
+                _value = pymysql.escape_string(_value);
+                if _index % _stepSize == 0 or _index == _totalSize - 1:
+                    if _sqlTemp:
+                        _conn = self.dbHelper.connectDatabase()
+                        print('storing: %d / %d' % (_index + 1, _totalSize))
+                        _cur = _conn.cursor();
+                        _sqlTemp = _sqlTemp + ",('%s')"  % _value if _index == _totalSize - 1 else _sqlTemp
+                        _cur.execute(_sqlTemp)
+                        _conn.commit()
+                        _cur.close()
+                        _conn.close()
+
+                    _sqlTemp = _sql + "('%s')" % _value
+                else:
+                    _sqlTemp += ",('%s')"  % _value
             except Exception as error:
                 self.logger.log(logging.ERROR,  error)
 
