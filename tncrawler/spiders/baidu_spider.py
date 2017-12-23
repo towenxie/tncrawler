@@ -2,6 +2,7 @@
 
 import scrapy
 import logging
+import pymysql
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.selector import Selector
 from scrapy.http import HtmlResponse,Request
