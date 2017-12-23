@@ -3,7 +3,6 @@
 import random
 import urllib3
 
-# from dbhelper import DBHelper
 from tncrawler.items import ProxyItem
 from tncrawler.manager.dbhelper import DBHelper
 

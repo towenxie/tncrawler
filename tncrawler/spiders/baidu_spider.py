@@ -1,4 +1,5 @@
-#coding=utf-8
+# -*- coding: utf-8 -*-
+
 import scrapy
 import logging
 from scrapy.spiders import CrawlSpider, Rule
@@ -23,7 +24,7 @@ class BaiduSpider(CrawlSpider):
         self.resitems = self.dbHelper.select(sql,*params)
         self.resitemsCount = len(self.resitems)
         params=('baiduitem',)
-        self.dbHelper.clear(*params) #是否清DB数据
+        # self.dbHelper.clear(*params) #是否清DB数据
 
     def parse_search_word(self, *params):
         return self.key_word % params
@@ -39,7 +40,6 @@ class BaiduSpider(CrawlSpider):
             callback=self.parse_title)
 
     def parse_detail(self, response):
-        # print('response:', response.text)
         item = BaiDuItem()
         try:
             item['name'] = response.meta['name']

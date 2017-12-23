@@ -55,7 +55,7 @@ MYSQL_PASSWD = ''         #数据库密码，请修改
 MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
@@ -70,7 +70,7 @@ MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
-#TELNETCONSOLE_ENABLED = False
+# TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
 #DEFAULT_REQUEST_HEADERS = {
