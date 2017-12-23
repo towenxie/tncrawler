@@ -47,10 +47,11 @@ scrapy crawl proxy_httpsdaili
 命令：scrapy crawl tncrawler 或者 python main.py
 原理，是从resitem表读取疾病列表，然后循环爬虫，获得数据结果存储在表baiduitem中。
 </pre>
-配置
+相关配置
 <pre>
-文件：baidu_spider.py
+
 1. 配置一次爬取的疾病列表个数
+位置：baidu_spider.py
 -----------------------------------
     def __init__(self):
         self.dbHelper=DBHelper()
@@ -58,11 +59,21 @@ scrapy crawl proxy_httpsdaili
         params=(0, 1) //更改这个数值
 
 2. 配置搜索的关键字
+位置：baidu_spider.py
 ----------------------------------
 class BaiduSpider(CrawlSpider):
     name="tncrawler"
     allowed_domains=["www.baidu.com"]
     key_word = "%s 早期症状 初期症状" // 更改这个关键字
+
+3. 配置数据库
+位置：tncrawler\settings.py
+------------------------------
+MYSQL_HOST = 'localhost'
+MYSQL_DBNAME = 'baidudb'         #数据库名字，请修改
+MYSQL_USER = 'root'             #数据库账号，请修改
+MYSQL_PASSWD = 'root'         #数据库密码，请修改
+MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 
 
 </pre>
