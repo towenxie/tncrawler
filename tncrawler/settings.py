@@ -20,14 +20,17 @@ NEWSPIDER_MODULE = 'tncrawler.spiders'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
-# USER_AGENT = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36'
 
-
+# Enable or disable downloader middlewares
+# See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-#    'crawler.middlewares.MyCustomDownloaderMiddleware': 543,
     # 'tncrawler.middlewares.ProxyMiddleware': 544,
     'tncrawler.middlewares.UserAgentMiddleware': 545
 }
+
+
+# Enable or disable extensions
+# See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 EXTENSIONS = {
     # telnet port range
     'scrapy.extensions.telnet.TelnetConsole': 6023,
@@ -58,6 +61,7 @@ MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
 # DOWNLOAD_DELAY = 3
+
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -80,17 +84,6 @@ COOKIES_ENABLED = False
 #    'tncrawler.middlewares.TncrawlerSpiderMiddleware': 543,
 #}
 
-# Enable or disable downloader middlewares
-# See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'tncrawler.middlewares.MyCustomDownloaderMiddleware': 543,
-#}
-
-# Enable or disable extensions
-# See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
-#EXTENSIONS = {
-#    'scrapy.extensions.telnet.TelnetConsole': None,
-#}
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html

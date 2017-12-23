@@ -13,6 +13,7 @@ class BaiduSpider(CrawlSpider):
     name="tncrawler"
     allowed_domains=["www.baidu.com"]
     key_word = "%s 早期症状 初期症状"
+    page_count = 10 #下载的页面数
     logger = logging.getLogger('BaiduSpider')
 
     def __init__(self):
@@ -22,7 +23,7 @@ class BaiduSpider(CrawlSpider):
         self.resitems = self.dbHelper.select(sql,*params)
         self.resitemsCount = len(self.resitems)
         params=('baiduitem',)
-        self.dbHelper.clear(*params)
+        # self.dbHelper.clear(*params) #是否清DB数据
 
     def parse_search_word(self, *params):
         return self.key_word % params
@@ -31,7 +32,7 @@ class BaiduSpider(CrawlSpider):
         self.index = 0
         self.cindex = -1
         self.page = 0
-        self.pageCount = 1
+        self.pageCount = self.page_count
         _search_word = self.key_word % self.resitems[self.index][0]
         yield scrapy.Request(
             url='https://www.baidu.com/s?wd=%s&pn=%d' % (_search_word, self.page),
@@ -54,7 +55,7 @@ class BaiduSpider(CrawlSpider):
         self.se=Selector(response)
         if (self.cindex != self.index):
             self.cindex = self.index
-            self.pageCount = 2
+            self.pageCount = self.page_count
         # resDivs=self.se.xpath("//div[@id='content_left']/div[@class='result-op c-container xpath-log']").extract()
         resDivs=self.se.xpath("//div[@id='content_left']/div[contains(@class,'result')]").extract()
         for i in range(len(resDivs)):
@@ -76,7 +77,7 @@ class BaiduSpider(CrawlSpider):
             self.index += 1
             if (self.index < self.resitemsCount):
                 self.page = 0
-                self.pageCount = 1
+                self.pageCount = self.page_count
                 _search_word = self.key_word % self.resitems[self.index][0]
                 yield scrapy.Request(
                     url='https://www.baidu.com/s?wd=%s&pn=%d' % (_search_word, self.page),

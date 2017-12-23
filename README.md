@@ -1,7 +1,7 @@
 # TNCrawler使用手册
 
 ## 安装所需软件
-1. python3.6
+1. [python3.6](https://www.python.org/ftp/python/3.6.4/python-3.6.4-amd64.exe)
 2. mysql数据库
 3. Anaconda(可选)
 
@@ -26,7 +26,7 @@ pip install urllib3
 </pre>
 
 ### 运行爬虫
-1.爬取所有代理IP
+1.爬取所有代理IP <可选>
 
 <pre>
 命令：
@@ -75,8 +75,20 @@ MYSQL_USER = 'root'             #数据库账号，请修改
 MYSQL_PASSWD = 'root'         #数据库密码，请修改
 MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 
+4. 配置代理运行爬虫
+位置：tncrawler\settings.py
 
+DOWNLOADER_MIDDLEWARES = {
+    # 'tncrawler.middlewares.ProxyMiddleware': 544, #取消注释，就可以用代理了
+    'tncrawler.middlewares.UserAgentMiddleware': 545
+}
 </pre>
+
+## 问题
+
+#####安装pip install scrapy，windows 10 系统下可能会有问题，安装下面这俩个会解决问题：
+[Twisted-17.9.0-cp36-cp36m-win_amd64.whl](https://download.lfd.uci.edu/pythonlibs/gjr6o2id/Twisted-17.9.0-cp36-cp36m-win_amd64.whl)   
+[pywin32-221.win-amd64-py3.6.exe](https://nchc.dl.sourceforge.net/project/pywin32/pywin32/Build%20221/pywin32-221.win-amd64-py3.6.exe)
 
 ## 参考
 
