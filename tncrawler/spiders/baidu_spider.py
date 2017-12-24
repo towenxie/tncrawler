@@ -21,7 +21,7 @@ class BaiduSpider(CrawlSpider):
     def __init__(self):
         self.dbHelper=DBHelper()
         sql="select name from resitem limit %d, %d"
-        params=(0, 100)
+        params=(3258, 5000)
         self.resitems = self.dbHelper.select(sql,*params)
         self.resitemsCount = len(self.resitems)
         params=('baiduitem',)

@@ -48,8 +48,7 @@ class WebcrawlerScrapyPipeline(object):
             user=settings['MYSQL_USER'],
             passwd=settings['MYSQL_PASSWD'],
             charset='utf8',#编码要加上，否则可能出现中文乱码问题
-            cursorclass=pymysql.cursors.DictCursor,
-            use_unicode=False,
+            use_unicode=True,
         )
         dbpool=adbapi.ConnectionPool('pymysql',**dbparams)#**表示将字典扩展为关键字参数,相当于host=xxx,db=yyy....
         return cls(dbpool)#相当于dbpool付给了这个类，self中可以得到
@@ -85,4 +84,5 @@ class WebcrawlerScrapyPipeline(object):
 
     #错误处理方法
     def _handle_error(self, failue, item, spider):
-        self.logger.log(logging.ERROR, "database operation exception %s" % failue)
+        return
+        # self.logger.log(logging.ERROR, "database operation exception %s" % failue)
