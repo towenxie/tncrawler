@@ -89,9 +89,10 @@ DOWNLOADER_MIDDLEWARES = {
 
 ## 问题
 
-#####安装pip install scrapy，windows 10 系统下可能会有问题，安装下面这俩个会解决问题：
-[Twisted-17.9.0-cp36-cp36m-win_amd64.whl](https://download.lfd.uci.edu/pythonlibs/gjr6o2id/Twisted-17.9.0-cp36-cp36m-win_amd64.whl)   
-[pywin32-221.win-amd64-py3.6.exe](https://nchc.dl.sourceforge.net/project/pywin32/pywin32/Build%20221/pywin32-221.win-amd64-py3.6.exe)
+##### 安装pip install scrapy，windows 10 系统下可能会有问题，安装下面这俩个会解决问题：
+
+- [Twisted-17.9.0-cp36-cp36m-win_amd64.whl](https://download.lfd.uci.edu/pythonlibs/gjr6o2id/Twisted-17.9.0-cp36-cp36m-win_amd64.whl)   
+- [pywin32-221.win-amd64-py3.6.exe](https://nchc.dl.sourceforge.net/project/pywin32/pywin32/Build%20221/pywin32-221.win-amd64-py3.6.exe)
 
 
 ## 参考
