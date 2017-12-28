@@ -149,7 +149,7 @@ class TestDBHelper():
     def testSelect(self):
         sql='select * from baiduitem where name = \'%s\' limit 3'
         params=('感冒',)
-        # print self.dbHelper.select(sql,*params)
+        print(self.dbHelper.select(sql,*params))
 
 if __name__=="__main__":
     testDBHelper=TestDBHelper()

@@ -33,8 +33,8 @@ DOWNLOADER_MIDDLEWARES = {
 # See http://scrapy.readthedocs.org/en/latest/topics/extensions.html
 EXTENSIONS = {
     # telnet port range
-    'scrapy.extensions.telnet.TelnetConsole': 6023,
-    'scrapy.extensions.telnet.TelnetConsole': 6025,
+    # 'scrapy.extensions.telnet.TelnetConsole': 6023,
+    # 'scrapy.extensions.telnet.TelnetConsole': 6025,
 
     # latency stats
     'tncrawler.latencies.Latencies': 500
@@ -51,11 +51,11 @@ ITEM_PIPELINES = {
 MYSQL_HOST = 'localhost'
 MYSQL_DBNAME = 'baidudb'         #数据库名字，请修改
 MYSQL_USER = 'root'             #数据库账号，请修改
-MYSQL_PASSWD = ''         #数据库密码，请修改
+MYSQL_PASSWD = 'root'         #数据库密码，请修改
 MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 20
+CONCURRENT_REQUESTS = 8
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
