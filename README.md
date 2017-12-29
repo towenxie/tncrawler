@@ -1,5 +1,7 @@
 # TNCrawler使用手册
 
+[URL](https://github.com/towenxie/tncrawler)
+
 ## 安装所需软件
 1. [python3.6](https://www.python.org/ftp/python/3.6.4/python-3.6.4-amd64.exe)
 2. mysql数据库
