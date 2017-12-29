@@ -25,7 +25,7 @@ CREATE TABLE `baiduitem` (
   `text` longtext,
   `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=8 ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `proxy`

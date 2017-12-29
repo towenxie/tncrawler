@@ -24,8 +24,8 @@ class BaiduSpider(CrawlSpider):
         params=(0, 10000)
         self.resitems = self.dbHelper.select(sql,*params)
         self.resitemsCount = len(self.resitems)
-        params=('baiduitem',)
-        self.dbHelper.clear(*params) #是否清DB数据
+        # params=('baiduitem',)
+        # self.dbHelper.clear(*params) #是否清DB数据
 
     def parse_search_word(self, *params):
         return self.key_word % params
