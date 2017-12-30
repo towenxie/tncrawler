@@ -54,17 +54,21 @@ MYSQL_USER = 'root'             #数据库账号，请修改
 MYSQL_PASSWD = 'root'         #数据库密码，请修改
 MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 
+CONCURRENT_ITEMS = 200
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 8
+CONCURRENT_REQUESTS = 16
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+# DOWNLOAD_DELAY = 0.25
+DOWNLOAD_TIMEOUT = 3
+DNS_TIMEOUT = 3
+DOWNLOAD_FAIL_ON_DATALOSS = False
 
 # The download delay setting will honor only one of:
-CONCURRENT_REQUESTS_PER_DOMAIN = 16
-CONCURRENT_REQUESTS_PER_IP = 16
+# CONCURRENT_REQUESTS_PER_DOMAIN = 16
+# CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
@@ -112,3 +116,4 @@ TELNETCONSOLE_ENABLED = False
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 LOG_LEVEL= 'INFO'
+LOG_FILE='tncrawler.log'

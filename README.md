@@ -49,6 +49,8 @@ scrapy crawl proxy_httpsdaili
 命令：scrapy crawl tncrawler 或者 python main.py
 原理，是从resitem表读取疾病列表，然后循环爬虫，获得数据结果存储在表baiduitem中。
 
+真正运行的时候建议使用命令（退出控制台，后台运行）：pythonw main.py
+
 查询DB爬的疾病个数：
 select count(*) from (select name, count(name) from baiduitem group by name) as su;
 </pre>
