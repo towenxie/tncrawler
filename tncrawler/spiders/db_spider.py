@@ -19,7 +19,7 @@ class DBSpider(CrawlSpider):
     def __init__(self):
         self.dbHelper=DBHelper()
         sql="select id, url from baiduitem limit %d,%d"
-        params=(10, 10)
+        params=(0, 10000)
         self.urlitems = self.dbHelper.select(sql,*params)
         self.urlitemsCount = len(self.urlitems)
 

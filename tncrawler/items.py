@@ -14,6 +14,7 @@ class ProxyItem(Item):
     port = Field()
 
 class RESItem(Item):
+    id = Field()
     name = Field()
     urls = Field()
 
