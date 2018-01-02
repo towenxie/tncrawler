@@ -19,7 +19,7 @@ class DBSpider(CrawlSpider):
     def __init__(self):
         self.dbHelper=DBHelper()
         sql="select id, url from baiduitem limit %d,%d"
-        params=(0, 10)
+        params=(10, 10)
         self.urlitems = self.dbHelper.select(sql,*params)
         self.urlitemsCount = len(self.urlitems)
 
@@ -33,13 +33,14 @@ class DBSpider(CrawlSpider):
                 callback=self.parse_detail)
 
     def parse_detail(self, response):
-        item = BaiDuItem()
-        item['id'] = response.meta['db_id']
-        try:
-            item['text'] = response.text
-        except:
-            item['text'] = 'error'
-        yield item
+        if response.status == 200:
+            item = BaiDuItem()
+            item['id'] = response.meta['db_id']
+            try:
+                item['text'] = response.text
+            except:
+                item['text'] = 'error'
+            yield item
         self.index += 1
         if (self.index < self.urlitemsCount):
             _db_url = self.urlitems[self.index][1]
