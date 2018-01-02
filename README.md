@@ -48,6 +48,7 @@ scrapy crawl proxy_httpsdaili
 
 命令：scrapy crawl tncrawler 或者 python main.py
 原理，是从resitem表读取疾病列表，然后循环爬虫，获得数据结果存储在表baiduitem中。
+</pre>
 
 3.爬取百度数据的网页内容
 <pre>
