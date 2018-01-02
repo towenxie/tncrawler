@@ -14,7 +14,7 @@ class RESHelper():
 
     def __init__(self):
         self.dbHelper=DBHelper()
-        self.resFileName = '../../data/res.txt'  #疾病文件位置
+        self.resFileName = '../../data/res12.txt'  #疾病文件位置
 
     #保存数据 到DB的resitem表中
     def save_data(self):

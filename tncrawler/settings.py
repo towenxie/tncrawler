@@ -56,7 +56,7 @@ MYSQL_PORT = 3306               #数据库端口，在dbhelper中使用
 
 CONCURRENT_ITEMS = 200
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 16
+CONCURRENT_REQUESTS = 32
 
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay

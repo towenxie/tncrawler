@@ -18,34 +18,31 @@ class DBSpider(CrawlSpider):
 
     def __init__(self):
         self.dbHelper=DBHelper()
-        sql="select id, url from baiduitem limit %d,%d"
+        sql="select id, url from baiduitem where url != 'error' limit %d,%d"
         params=(0, 10000)
         self.urlitems = self.dbHelper.select(sql,*params)
         self.urlitemsCount = len(self.urlitems)
 
     def start_requests(self):
-        self.index = 0
-        _db_url = self.urlitems[self.index][1]
-        if _db_url is not "error":
-            yield scrapy.Request(
-                url = _db_url,
-                meta={'db_id': self.urlitems[self.index][0]},
-                callback=self.parse_detail)
-
-    def parse_detail(self, response):
-        if response.status == 200:
-            item = BaiDuItem()
-            item['id'] = response.meta['db_id']
-            try:
-                item['text'] = response.text
-            except:
-                item['text'] = 'error'
-            yield item
-        self.index += 1
-        if (self.index < self.urlitemsCount):
-            _db_url = self.urlitems[self.index][1]
+        for _index in range(self.urlitemsCount):
+            _db_url = self.urlitems[_index][1]
             if _db_url is not "error":
                 yield scrapy.Request(
                     url = _db_url,
-                    meta={'db_id': self.urlitems[self.index][0]},
+                    meta={'db_id': self.urlitems[_index][0]},
                     callback=self.parse_detail)
+
+    def parse_detail(self, response):
+        try:
+            item = BaiDuItem()
+            item['id'] = response.meta['db_id']
+            try:
+                if response.status == 200:
+                    item['text'] = response.text
+                else:
+                    item['text'] = 'error'
+            except:
+                item['text'] = 'error'
+            yield item
+        except Exception as error:
+            self.logger.log(logging.ERROR, error)
