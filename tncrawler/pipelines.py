@@ -58,9 +58,15 @@ class WebcrawlerScrapyPipeline(object):
         if isinstance(item, ProxyItem):
             query=self.dbpool.runInteraction(self._proxy_insert,item)#调用插入的方法
             query.addErrback(self._handle_error,item,spider)#调用异常处理方法
-        elif isinstance(item, BaiDuItem):
+        elif isinstance(item, RESItem):
             try:
                 query=self.dbpool.runInteraction(self._baidu_insert,item)#调用插入的方法
+                query.addErrback(self._handle_error,item,spider)#调用异常处理方法
+            except:
+                self._handle_error()
+        elif isinstance(item, BaiDuItem):
+            try:
+                query=self.dbpool.runInteraction(self._baidu_update,item)#调用插入的方法
                 query.addErrback(self._handle_error,item,spider)#调用异常处理方法
             except:
                 self._handle_error()
@@ -76,13 +82,24 @@ class WebcrawlerScrapyPipeline(object):
         tx.execute(sql,params)
         self.logger.log(logging.INFO, "Item stored in db: %s" % item)
 
+
     def _baidu_insert(self,tx,item):
-        sql="insert into baiduitem(name,url,text) values(%s,%s,%s)"
-        params=(item["name"],item["url"],item["text"],)
+        sql="insert into baiduitem(name,url) values"
+        for _index, value in enumerate(item["urls"]):
+            if _index != 0:
+                sql = sql + ","
+            sql = sql + "('%s','%s')" % (item["name"], value)
+        self.logger.log(logging.INFO, sql)
+        params=()
         tx.execute(sql,params)
-        # self.logger.log(logging.INFO, "Item stored in db: %s" % item["name"])
+        self.logger.log(logging.INFO, "Item stored in db: %s" % item["name"])
+
+    def _baidu_update(self,tx,item):
+        sql="update baiduitem set text=%s where id = %s"
+        params=(item["text"],item["id"],)
+        tx.execute(sql,params)
+        self.logger.log(logging.INFO, "Item updated in db: %s" % item["id"])
 
     #错误处理方法
     def _handle_error(self, failue, item, spider):
-        return
-        # self.logger.log(logging.ERROR, "database operation exception %s" % failue)
+        self.logger.log(logging.ERROR, "database operation exception %s" % failue)

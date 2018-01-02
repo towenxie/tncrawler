@@ -14,10 +14,11 @@ class ProxyItem(Item):
     port = Field()
 
 class RESItem(Item):
-    bw = Field()
     name = Field()
+    urls = Field()
 
 class BaiDuItem(Item):
+    id = Field()
     name = Field()
     url = Field()
     text = Field()
