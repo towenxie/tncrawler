@@ -89,7 +89,6 @@ class WebcrawlerScrapyPipeline(object):
             if _index != 0:
                 sql = sql + ","
             sql = sql + "('%s','%s')" % (item["name"], value)
-        self.logger.log(logging.INFO, sql)
         params=()
         tx.execute(sql,params)
         self.logger.log(logging.INFO, "Item stored in db: %s" % item["name"])
