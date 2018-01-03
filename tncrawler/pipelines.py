@@ -94,13 +94,13 @@ class WebcrawlerScrapyPipeline(object):
             sql = sql + "('%s','%s')" % (item["name"], value)
         params=()
         tx.execute(sql,params)
-        self.logger.log(logging.INFO, "Item stored in db: %d: %s" % (item["id"], item["name"]))
+        # self.logger.log(logging.INFO, "Item stored in db: %d: %s" % (item["id"], item["name"]))
 
     def _baidu_update(self,tx,item):
         sql="update baiduitem set text=%s where id = %s"
         params=(item["text"],item["id"],)
         tx.execute(sql,params)
-        self.logger.log(logging.INFO, "Item updated in db: %s" % item["id"])
+        # self.logger.log(logging.INFO, "Item updated in db: %s" % item["id"])
 
     #错误处理方法
     def _handle_error(self, failue, item, spider):

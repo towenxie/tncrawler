@@ -30,11 +30,14 @@ class BaiduSpider(CrawlSpider):
 
     def start_requests(self):
         for _index in range(self.resitemsCount):
+            _resid = self.resitems[_index][0]
+            _resname = self.resitems[_index][1]
+            self.logger.log(logging.INFO, "Item will crawl spider: %d: %s" % (_resid, _resname))
             for _page in range(self.page_count):
-                _search_word = self.key_word % self.resitems[_index][1]
+                _search_word = self.key_word % _resname
                 yield scrapy.Request(
                     url='https://www.baidu.com/s?wd=%s&pn=%d' % (_search_word, _page*10),
-                    meta={'res_name': self.resitems[_index][1], 'res_id': self.resitems[_index][0]},
+                    meta={'res_name': _resname, 'res_id': _resid},
                     callback=self.parse_title)
 
     def parse_title(self, response):
