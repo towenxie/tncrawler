@@ -48,6 +48,9 @@ class WebcrawlerScrapyPipeline(object):
             user=settings['MYSQL_USER'],
             passwd=settings['MYSQL_PASSWD'],
             charset='utf8',#编码要加上，否则可能出现中文乱码问题
+            cp_min=10,
+            cp_max=15,
+            cp_reconnect=True,
             use_unicode=True,
         )
         dbpool=adbapi.ConnectionPool('pymysql',**dbparams)#**表示将字典扩展为关键字参数,相当于host=xxx,db=yyy....
