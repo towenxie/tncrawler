@@ -15,22 +15,31 @@ class DBSpider(CrawlSpider):
     name="dbcrawler"
     allowed_domains=["www.baidu.com"]
     logger = logging.getLogger('DBSpider')
+    count = 3
+    page_size = 10
 
     def __init__(self):
         self.dbHelper=DBHelper()
-        sql="select id, url from baiduitem where url != 'error' limit %d,%d"
-        params=(0, 10000)
-        self.urlitems = self.dbHelper.select(sql,*params)
-        self.urlitemsCount = len(self.urlitems)
+        # sql="select id, url from baiduitem where url != 'error' limit %d,%d"
+        # params=(0, 10000)
+        # self.urlitems = self.dbHelper.select(sql,*params)
+        # self.urlitemsCount = len(self.urlitems)
 
     def start_requests(self):
-        for _index in range(self.urlitemsCount):
-            _db_url = self.urlitems[_index][1]
-            if _db_url is not "error":
-                yield scrapy.Request(
-                    url = _db_url,
-                    meta={'db_id': self.urlitems[_index][0]},
-                    callback=self.parse_detail)
+        for _count_index in range(self.count):
+            sql="select id, url from baiduitem where url != 'error' limit %d,%d"
+            params=(_count_index*self.page_size, self.page_size)
+            _urlitems = self.dbHelper.select(sql,*params)
+            _urlitemsCount = len(_urlitems)
+            for _index in range(_urlitemsCount):
+                _db_id = _urlitems[_index][0]
+                _db_url = _urlitems[_index][1]
+                self.logger.log(logging.INFO, "Item will crawl spider: count=%d: id=%s" % (_count_index, _db_id))
+                if _db_url is not "error":
+                    yield scrapy.Request(
+                        url = _db_url,
+                        meta={'db_id': _db_id},
+                        callback=self.parse_detail)
 
     def parse_detail(self, response):
         try:
