@@ -16,8 +16,8 @@ class DBSpider(CrawlSpider):
     allowed_domains=["www.baidu.com"]
     logger = logging.getLogger('DBSpider')
     sql="select id, url from baiduitem where url != 'error' and id > %d limit %d"
-    count = 3000   #6174 6173441
-    page_size = 1000
+    count = 600   #6174 6173441
+    page_size = 5000
     init_index = 0
 
     def __init__(self):
