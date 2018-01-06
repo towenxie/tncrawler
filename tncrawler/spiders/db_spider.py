@@ -15,19 +15,17 @@ class DBSpider(CrawlSpider):
     name="dbcrawler"
     allowed_domains=["www.baidu.com"]
     logger = logging.getLogger('DBSpider')
-    count = 3
-    page_size = 10
+    count = 3000   #6174 6173441
+    page_size = 1000
+    init_index = 0
 
     def __init__(self):
         self.dbHelper=DBHelper()
-        # sql="select id, url from baiduitem where url != 'error' limit %d,%d"
-        # params=(0, 10000)
-        # self.urlitems = self.dbHelper.select(sql,*params)
-        # self.urlitemsCount = len(self.urlitems)
 
     def start_requests(self):
-        for _count_index in range(self.count):
-            sql="select id, url from baiduitem where url != 'error' limit %d,%d"
+        for _count_index in range(self.count + self.init_index):
+            _count_index = _count_index + self.init_index
+            sql="select id, url from baiduitem where url != 'error' and id > %d limit %d"
             params=(_count_index*self.page_size, self.page_size)
             _urlitems = self.dbHelper.select(sql,*params)
             _urlitemsCount = len(_urlitems)
