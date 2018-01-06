@@ -27,8 +27,17 @@ pip install urllib3
 3. baiduitem
 </pre>
 
+### 数据
+文件位置：data/
+
+疾病列表数据：
+
+- res.txt # 2017年12月份疾病列表
+- res12.txt # 2018年1月2号的份疾病列表
+
+
 ### 运行爬虫
-1.爬取所有代理IP <可选>
+1.**放弃**  爬取所有代理IP <可选>
 
 <pre>
 命令：
@@ -45,21 +54,18 @@ scrapy crawl proxy_httpsdaili
 
 3.爬取百度数据的URL
 <pre>
-
 命令：scrapy crawl tncrawler 或者 python main.py
 原理，是从resitem表读取疾病列表，然后循环爬虫，获得数据结果存储在表baiduitem中。
 </pre>
 
 3.爬取百度数据的网页内容
 <pre>
-
 命令：scrapy crawl dbcrawler 或者 python main_detail.py
 原理，是从baiduitem表读取疾病URL列表，然后循环爬虫，获得数据结果更新存储在表baiduitem中。
 
-
 真正运行的时候建议使用命令（退出控制台，后台运行）：pythonw main.py/pythonw main_detail.py
 
-查询DB爬的疾病个数：
+查询DB爬的疾病个数（时间可能会很长）：
 select count(*) from (select name, count(name) from baiduitem group by name) as su;
 </pre>
 相关配置
@@ -70,8 +76,8 @@ select count(*) from (select name, count(name) from baiduitem group by name) as 
 -----------------------------------
     def __init__(self):
         self.dbHelper=DBHelper()
-        sql="select name from resitem limit %d, %d"
-        params=(0, 1) //更改这个数值
+        sql="select name from resitem limit %d,%d"
+        params=(0, 10000) //更改这个数值
 
 2. 配置搜索的关键字
 位置：baidu_spider.py
@@ -80,6 +86,18 @@ class BaiduSpider(CrawlSpider):
     name="tncrawler"
     allowed_domains=["www.baidu.com"]
     key_word = "%s 早期症状 初期症状" // 更改这个关键字
+
+3. 配置爬页面内容
+位置：
+---------------------------------
+class DBSpider(CrawlSpider):
+	.....
+    sql="select id, url from baiduitem where url != 'error' and id > %d limit %d"
+    count = 3000   	# 总共从DB取多少次数据
+    page_size = 1000 	# 每次从DB取多少个数据
+    init_index = 0	# 初始的次数，作用就是获取开始爬的位置：init_index * page_size
+	
+计算总数据量公式：300W = (count-init_index) * page_size
 
 3. 配置数据库
 位置：tncrawler\settings.py
